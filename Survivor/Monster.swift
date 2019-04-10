@@ -11,12 +11,14 @@ import SpriteKit
 
 class Monster:SKSpriteNode {
     
+    var valeur:Int = 0
     var pv:Int = 0
     var vitesse:TimeInterval = 0
     var direction:String = "RIGHT"
     var sens:CGFloat = 1
     var type:String = ""
     var source:MonsterGenerator!
+    var gameScene:GameScene!
     
     var isHurted:Bool = false
     
@@ -29,11 +31,13 @@ class Monster:SKSpriteNode {
         self.name = "monster"
         self.type = monsterType
         self.pv = vie
+        self.valeur = vie
         self.direction = directionMove
         self.sens = self.direction == "RIGHT" ? 1 : -1
         self.position = CGPoint(x: -sens*scene.size.width/2, y: -50)
-        self.vitesse = 8
+        self.vitesse = 6
         self.source = source
+        self.gameScene = scene as! GameScene
         
         //Création et paramétrage du corp physique des monstres
         self.physicsBody = SKPhysicsBody(texture: texture, size:CGSize(width: 80, height: 80))
@@ -69,12 +73,15 @@ class Monster:SKSpriteNode {
     func die(){
         self.removeAllActions()
         desableCollisionsWithObject(category:projectileCategory)
+        let updateScore:SKAction = SKAction.run {
+            self.gameScene.score += self.valeur
+        }
         let dieAnimation:SKAction = SKAction(named: direction+"_Die"+type)!
         let finish:SKAction = SKAction.run {
             self.removeFromParent()
             self.source.removeMonster(monster: self)
         }
-        let seq:SKAction = SKAction.sequence([dieAnimation, finish])
+        let seq:SKAction = SKAction.sequence([updateScore, dieAnimation, finish])
         self.run(seq)
     }
     

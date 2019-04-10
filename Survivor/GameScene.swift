@@ -13,6 +13,7 @@ let playerCategory:UInt32 = 1 << 0      // ...0000001
 let monsterCategory:UInt32 = 1 << 1     // ...0000010
 let projectileCategory:UInt32 = 1 << 2  // ...0000100
 let groundCategory:UInt32 = 1 << 3       // ...0001000
+//var score = 0
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -25,10 +26,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var generateurMonstreLeft:MonsterGenerator!
     var background:SKSpriteNode!
     var ground:SKSpriteNode!
+    var scoreLabel:SKLabelNode!
+    var score:Int = 0
     
     override func didMove(to view: SKView) {
         
         self.physicsWorld.contactDelegate = self
+        
+        if let label:SKLabelNode = self.childNode(withName: "ScoreLabel") as? SKLabelNode {
+            scoreLabel = label
+            scoreLabel.text = "Score : \(score)"
+        }
         
         if let node:Player = self.childNode(withName: "player") as? Player {
             player = node
@@ -48,12 +56,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.generateurMonstreRight = MonsterGenerator(scene: self, direction: "RIGHT")
         self.generateurMonstreLeft = MonsterGenerator(scene: self, direction: "LEFT")
-        
     }
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         if(!player.gameOver){
+            scoreLabel.text = "Score : \(score)"
             generateurMonstreRight.generate()
             generateurMonstreLeft.generate()
             deleteExtraNodes()
@@ -65,7 +73,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
             
-        }
+    }
     
     
     func deleteExtraNodes(){
@@ -126,7 +134,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             let monster:Monster = contact.bodyB.node as! Monster
             monster.beHurted()
-            if(monster.pv == 0){ monster.die() }
+            if(monster.pv == 0){ monster.die()}
         
             let bullet:Projectile = contact.bodyA.node as! Projectile
             bullet.destroy()

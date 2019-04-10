@@ -16,8 +16,8 @@ class MonsterGenerator {
     var sens:CGFloat!
     var scene:SKScene!
     
-    var nbMonstersMax:Int = 3
-    var generationIsAllowed = true
+    var nbMonstersMax:Int = 2
+    var generationIsAllowed = false
     var limite:CGFloat = 0
     
     init(scene:SKScene, direction:String) {
@@ -27,16 +27,16 @@ class MonsterGenerator {
         self.limite = (self.scene.size.width/2) - CGFloat(Int.random(in: 30 ... 150)) //Lorsque le dernier monstre dépasse cette limite aléatoire, un nouveau monstre pourra être généré.
     }
     
-    func chooseMonster() -> (String,Int){
+    func chooseMonster() -> Monster{
         //tirer un nombre aléatoire
         let type:String
         let pv:Int
         let nbAlea:Int = Int.random(in: 0 ... 10)
         switch nbAlea {
-        case 1 :
+        case 1,2,3 :
             type = "Knight"
             pv = 3
-        case 2,3,4:
+        case 4, 5, 6, 7:
             type = "Golem"
             pv = 2
         default:
@@ -44,13 +44,13 @@ class MonsterGenerator {
             pv = 1
         }
         
-        return (type, pv)
+        return( Monster(scene: scene, source:self, vie: pv, directionMove: self.direction, monsterType: type) )
     }
     
     func generate(){
-        let monster = self.chooseMonster() //renvoi un couple (typeMonster, PvMonster)
         if(monsters.count == 0) {
-            self.monsters.append(Monster(scene: self.scene, source:self, vie: monster.1, directionMove: self.direction, monsterType: monster.0))
+            let monster:Monster = self.chooseMonster()
+            self.monsters.append(monster)
         } else if(monsters.count >= nbMonstersMax || (monsters.last!.position.x < -self.limite && self.sens == 1) || (monsters.last!.position.x > self.limite && self.sens == -1) ){
             self.generationIsAllowed = false
         } else {
@@ -58,7 +58,8 @@ class MonsterGenerator {
         }
         
         if(generationIsAllowed) {
-            self.monsters.append(Monster(scene: self.scene, source:self, vie: monster.1, directionMove: self.direction, monsterType: monster.0))
+            let monster:Monster = self.chooseMonster()
+            self.monsters.append(monster)
         }
     }
     

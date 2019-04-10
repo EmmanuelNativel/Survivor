@@ -50,10 +50,6 @@ class Projectile:SKSpriteNode {
     
     //Supprimer le projectile
     func destroy(){
-        /*
-        if let index = self.player.projectiles.index(of:self) {
-            self.player.projectiles.remove(at: index)
-        }*/
         self.removeFromParent()
     }
 }

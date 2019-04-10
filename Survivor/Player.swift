@@ -39,9 +39,6 @@ class Player: SKSpriteNode {
                 self.removeAllActions()
                 
                 let attackAnimation:SKAction = SKAction(named: "Attack_"+self.direction)!
-        
-                //let attackAnimation = SKAction.animate(withNormalTextures: [SKTexture(imageNamed: direction+"_5_ATTACK_000"), SKTexture(imageNamed: direction+"_5_ATTACK_001"), SKTexture(imageNamed: direction+"_5_ATTACK_002"), SKTexture(imageNamed: direction+"_5_ATTACK_003"), SKTexture(imageNamed: direction+"_5_ATTACK_004")], timePerFrame: 0.1, resize: true, restore: true)
-                
                 
                 //Lorsque l'animation d'attaque est terminée
                 let finish:SKAction = SKAction.run {

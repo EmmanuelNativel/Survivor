@@ -1,6 +1,6 @@
 //
-//  Golem.swift
-//  test
+//  Monster.swift
+//
 //
 //  Created by Emmanuel Nativel on 3/24/19.
 //  Copyright © 2019 Emmanuel Nativel. All rights reserved.
@@ -35,9 +35,9 @@ class Monster:SKSpriteNode {
         self.direction = directionMove
         self.sens = self.direction == "RIGHT" ? 1 : -1
         self.position = CGPoint(x: -sens*scene.size.width/2, y: -50)
-        self.vitesse = 6
+        self.vitesse = 7
         self.source = source
-        self.gameScene = scene as! GameScene
+        self.gameScene = (scene as! GameScene)
         
         //Création et paramétrage du corp physique des monstres
         self.physicsBody = SKPhysicsBody(texture: texture, size:CGSize(width: 80, height: 80))

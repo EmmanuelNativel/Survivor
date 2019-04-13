@@ -15,12 +15,18 @@ let projectileCategory:UInt32 = 1 << 2  // ...0000100
 let groundCategory:UInt32 = 1 << 3       // ...0001000
 //var score = 0
 
+struct Score {
+    static var scoreCurrent = 0
+    static var scores = [(String, Int, String)]()
+}
+
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //Faire disparaitre les monstres quand le joueur est tué
     //Revoir le resize de l'anim attack du perso ET mort du knight
     
+    var viewController:UIViewController?
     var player:Player!
     var generateurMonstreRight:MonsterGenerator!
     var generateurMonstreLeft:MonsterGenerator!
@@ -28,6 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var ground:SKSpriteNode!
     var scoreLabel:SKLabelNode!
     var score:Int = 0
+    var run:Bool = true
     
     override func didMove(to view: SKView) {
         
@@ -50,7 +57,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if let g:SKSpriteNode = self.childNode(withName: "ground") as? SKSpriteNode {
             ground = g
-            //ground.texture = SKTexture(imageNamed: "ground")
             ground.physicsBody?.categoryBitMask = groundCategory
         }
         
@@ -70,6 +76,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if(node.name == "monster"){
                     node.removeFromParent()
                 }
+            }
+            if(run){
+                run = false
+                //On envoi la valeur du score à la vue GameOver
+                Score.scoreCurrent = self.score
+                //self.viewController?.performSegue(withIdentifier: "gameOver", sender: self.score)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "GameOver")
+                vc.view.frame = (self.view?.window?.rootViewController?.view.frame)!
+                vc.view.layoutIfNeeded()
+            
+                UIView.transition(with: (self.view?.window)!, duration: 0.3, options: .transitionFlipFromRight, animations:
+                    {
+                        self.view?.window?.rootViewController = vc
+                }, completion: { completed in
+                    //Quand le changement de scène est fait on demande à reset le GameViewController
+                    self.view?.window?.rootViewController?.dismiss(animated: false, completion: nil)
+                })
             }
         }
             
@@ -136,19 +160,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             monster.beHurted()
             if(monster.pv == 0){ monster.die()}
         
-            let bullet:Projectile = contact.bodyA.node as! Projectile
-            bullet.destroy()
+            //Supression du projectile
+            contact.bodyA.node?.removeFromParent()
         }
         
         if(contact.bodyB.categoryBitMask == projectileCategory && contact.bodyA.categoryBitMask == monsterCategory ){
             
-            //print("contact")
             let monster:Monster = contact.bodyA.node as! Monster
             monster.beHurted()
             if(monster.pv == 0){ monster.die() }
             
-            let bullet:Projectile = contact.bodyB.node as! Projectile
-            bullet.destroy()
+            //Supression du projectile
+            contact.bodyB.node?.removeFromParent()
         }
         
         // *** Collision Player-Monster
@@ -160,14 +183,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             monster.attack()
             player.die()
         }
-        /*
-         if(contact.bodyB.categoryBitMask == playerCategory && contact.bodyA.categoryBitMask == monsterCategory ){
-         
-         let monster:Monster = contact.bodyA.node as! Monster
-         monster.attack()
-         player.die()
-         }
-         */
     }
 
 }

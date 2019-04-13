@@ -19,6 +19,9 @@
 		CA140A142253D6D200832BC6 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA140A102253D6D100832BC6 /* Player.swift */; };
 		CA140A152253D6D200832BC6 /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA140A112253D6D200832BC6 /* Projectile.swift */; };
 		CA140A162253D6D200832BC6 /* MonsterGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA140A122253D6D200832BC6 /* MonsterGenerator.swift */; };
+		CA47E36A2260DBC2006DD823 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA47E3692260DBC2006DD823 /* GameOverViewController.swift */; };
+		CABB3EA42261396C006A17D9 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABB3EA32261396C006A17D9 /* CustomTableViewCell.swift */; };
+		CAD2025122612F2100C0FA54 /* ScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD2025022612F2100C0FA54 /* ScoreViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		CA140A102253D6D100832BC6 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		CA140A112253D6D200832BC6 /* Projectile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
 		CA140A122253D6D200832BC6 /* MonsterGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonsterGenerator.swift; sourceTree = "<group>"; };
+		CA47E3692260DBC2006DD823 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
+		CABB3EA32261396C006A17D9 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		CAD2025022612F2100C0FA54 /* ScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,9 @@
 				CA140A122253D6D200832BC6 /* MonsterGenerator.swift */,
 				CA140A102253D6D100832BC6 /* Player.swift */,
 				CA140A112253D6D200832BC6 /* Projectile.swift */,
+				CA47E3692260DBC2006DD823 /* GameOverViewController.swift */,
+				CAD2025022612F2100C0FA54 /* ScoreViewController.swift */,
+				CABB3EA32261396C006A17D9 /* CustomTableViewCell.swift */,
 			);
 			path = Survivor;
 			sourceTree = "<group>";
@@ -117,6 +126,7 @@
 				TargetAttributes = {
 					CA1409F32253D04100832BC6 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -162,9 +172,12 @@
 				CA140A152253D6D200832BC6 /* Projectile.swift in Sources */,
 				CA140A132253D6D200832BC6 /* Monster.swift in Sources */,
 				CA1409FE2253D04100832BC6 /* GameScene.swift in Sources */,
+				CA47E36A2260DBC2006DD823 /* GameOverViewController.swift in Sources */,
 				CA140A002253D04100832BC6 /* GameViewController.swift in Sources */,
+				CABB3EA42261396C006A17D9 /* CustomTableViewCell.swift in Sources */,
 				CA140A142253D6D200832BC6 /* Player.swift in Sources */,
 				CA1409F82253D04100832BC6 /* AppDelegate.swift in Sources */,
+				CAD2025122612F2100C0FA54 /* ScoreViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +332,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = EmmanuelNativel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -337,7 +350,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = EmmanuelNativel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

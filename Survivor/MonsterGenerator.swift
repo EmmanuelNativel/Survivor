@@ -1,6 +1,6 @@
 //
 //  MonsterGenerator.swift
-//  test
+//  
 //
 //  Created by Emmanuel Nativel on 3/29/19.
 //  Copyright © 2019 Emmanuel Nativel. All rights reserved.
@@ -16,7 +16,7 @@ class MonsterGenerator {
     var sens:CGFloat!
     var scene:SKScene!
     
-    var nbMonstersMax:Int = 2
+    var nbMonstersMax:Int = 3
     var generationIsAllowed = false
     var limite:CGFloat = 0
     
@@ -33,10 +33,10 @@ class MonsterGenerator {
         let pv:Int
         let nbAlea:Int = Int.random(in: 0 ... 10)
         switch nbAlea {
-        case 1,2,3 :
+        case 0, 1 :
             type = "Knight"
             pv = 3
-        case 4, 5, 6, 7:
+        case 2, 3, 4, 5:
             type = "Golem"
             pv = 2
         default:
@@ -64,7 +64,7 @@ class MonsterGenerator {
     }
     
     func removeMonster(monster:Monster){
-        if let index = self.monsters.index(of:monster) {
+        if let index = self.monsters.firstIndex(of:monster) {
             self.monsters.remove(at:index)
         }
     }
